@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Settings{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    <div class="settings-page">
+        <div class="setting-label">
+            Change username
+        </div>
+        <input name="username" placeholder="{{g.user['username']}}" id="username" readonly
+            onfocus="this.removeAttribute('readonly');">
+
+        <div class="setting-label">
+            Change token
+        </div>
+        <input type="password" value="{{g.user['token']}}" name="token" id="token" readonly
+            onfocus="this.removeAttribute('readonly');">
+        <input type="checkbox" onclick="myFunction('token')" class="show-hide-secret">Show
+
+        <div class="setting-label">
+            Change password
+        </div>
+        <input type="password" placeholder="Old password" name="password" id="old_password">
+        <input type="checkbox" onclick="myFunction('old_password')" class="show-hide-secret">Show
+        <div class="setting-label">
+        </div>
+        <input type="password" placeholder="New password" name="password" id="new_password">
+        <input type="checkbox" onclick="myFunction('new_password')" class="show-hide-secret">Show
+        <div class="setting-label"></div>
+
+    </div>
+    <input type="submit" value="Save">
+    </div>
+</form>
+
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    } 
+</script>
+{% endblock %}

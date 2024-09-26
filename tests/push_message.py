@@ -1,7 +1,7 @@
 import http.client
 import urllib
-APP_TOKEN: str = "aszwjnjeffy3cdcisqb6anm9eusrhh"
-USER_KEY: str = "uoghnwn4vgn6tgnqm5oo6m4ckjwppc"
+APP_TOKEN = "aszwjnjeffy3cdcisqb6anm9eusrhh"
+USER_KEY = "uoghnwn4vgn6tgnqm5oo6m4ckjwppc"
 
 
 def push_message(message: str) -> None:
@@ -15,10 +15,10 @@ def push_message(message: str) -> None:
     return conn.getresponse().status
 
 
-# def main() -> None:
-#     while True:
-#         print(push_message(input()))
+def main() -> None:
+    while True:
+        print(push_message(input()))
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
