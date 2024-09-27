@@ -14,14 +14,16 @@
 </form>
 <hr>
 <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
-  <input class="danger" type="submit" value="Delete" onclick="return confirmDelete()">
+  <input name="delete" id="deletebox" value="" required>
+  <input class="danger" type="submit" value="Delete">
+  <!--onclick="return confirmDelete()" -->
 </form>
 
 <script>
   function confirmDelete() {
-    var result = window.prompt("test");
+    var result = window.prompt("type DELETE to confirm");
 
-    if (!result) {
+    if (result != "DELETE") {
       alert("Deletion cancelled.");
       return false;
     }

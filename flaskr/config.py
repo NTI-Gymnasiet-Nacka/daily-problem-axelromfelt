@@ -10,9 +10,14 @@ bp = Blueprint('config', __name__, url_prefix='/settings')
 
 
 @bp.route("/", methods=('GET', 'POST'))
-def settings():
+def settings(**kwargs):
+    update = kwargs.get('update', None)
     if request.method == 'POST':
-        return redirect(url_for('blog.user', username=g.user["username"]))
+        print(update)
+        if update == "token":
+            print("0")
+        else:
+            return redirect(url_for('blog.user', username=g.user["username"]))
     if g.user is not None:
         return render_template('config/settings.html')
     else:

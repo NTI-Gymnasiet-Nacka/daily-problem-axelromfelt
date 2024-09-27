@@ -25,6 +25,22 @@ def index():
     return render_template("blog/index.html", posts=posts)
 
 
+def check_user(username):
+    check = (
+        get_db()
+        .execute(
+            "SELECT username"
+            " FROM user"
+            " WHERE username = ?",
+            (username,),
+        )
+        .fetchone()
+    )
+    if check is not None:
+        return True
+    return None
+
+
 def get_post(id, check_author=True):
     """Get a post and its author by id.
 
@@ -47,7 +63,6 @@ def get_post(id, check_author=True):
         )
         .fetchone()
     )
-
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
 
@@ -88,12 +103,12 @@ def create():
 def update(id):
     """Update a post if the current user is the author."""
     post = get_post(id)
-
+    print(request.form)
     if request.method == "POST":
         title = request.form["title"]
         body = request.form["body"]
         error = None
-
+        print(title, body)
         if not title:
             error = "Title is required."
 
@@ -102,7 +117,8 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                "UPDATE post SET title = ?, body = ? WHERE id = ?", (title, body, id)
+                "UPDATE post SET title = ?, body = ? WHERE id = ?", (
+                    title, body, id)
             )
             db.commit()
             return redirect(url_for("blog.index"))
@@ -118,8 +134,10 @@ def delete(id):
     Ensures that the post exists and that the logged in user is the
     author of the post.
     """
-    get_post(id)
-    db = get_db()
-    db.execute("DELETE FROM post WHERE id = ?", (id,))
-    db.commit()
-    return redirect(url_for("blog.index"))
+    if check_user(request.form["delete"]) is not None:
+        get_post(id)
+        db = get_db()
+        db.execute("DELETE FROM post WHERE id = ?", (id,))
+        db.commit()
+        return redirect(url_for("blog.index"))
+    return redirect(url_for("blog.update", id=id))

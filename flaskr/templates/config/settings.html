@@ -16,9 +16,12 @@
         <div class="setting-label">
             Change token
         </div>
-        <input type="password" value="{{g.user['token']}}" name="token" id="token" readonly
-            onfocus="this.removeAttribute('readonly');">
-        <input type="checkbox" onclick="myFunction('token')" class="show-hide-secret">Show
+        <form action="{{ url_for('config.settings', update=token)}}" method="post">
+            <input type="password" value="{{g.user['token']}}" name="token" id="token" readonly
+                onfocus="this.removeAttribute('readonly');">
+            <input type="checkbox" onclick="myFunction('token')" class="show-hide-secret">Show
+            <input class="danger" type="submit" value="Save">
+        </form>
 
         <div class="setting-label">
             Change password
