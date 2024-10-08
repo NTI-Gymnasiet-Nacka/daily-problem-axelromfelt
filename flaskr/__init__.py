@@ -45,4 +45,5 @@ def create_app(test_config=None):
     return app
 
 # flask --app flaskr run --debug
+# flask --app flaskr run --host=0.0.0.0
 # flask --app flaskr init-db

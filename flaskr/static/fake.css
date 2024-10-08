@@ -122,11 +122,9 @@ header .action {
 }
 
 .content textarea {
-    display: block;
     min-height: 12em;
     width: 50%;
     resize: vertical;
-
 }
 
 input.danger {
@@ -139,7 +137,6 @@ input[type=submit] {
 }
 
 input[type=text] {
-    display: block;
     width: 20%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -149,4 +146,11 @@ input[type=text] {
 input[type=date] {
     display: block;
     margin: 5px 0;
+}
+
+input[id=body] {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
