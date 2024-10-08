@@ -1,46 +1,31 @@
 import sqlite3
 from datetime import datetime as dt
-
-# def get_db():
-
-#     db = sqlite3.connect(
-#         "./instance/flaskr.sqlite",
-#         detect_types=sqlite3.PARSE_DECLTYPES
-#     )
-#     db.row_factory = sqlite3.Row
-
-#     return db
+from push_message import push_message
 
 
-# def close_db(e=None):
-#     db = g.pop('db', None)
+def check_messages():
+    date = dt.now().strftime('%Y-%m-%d')
+    time = dt.now().strftime('%H:%M')
 
-#     if db is not None:
-#         db.close()
+    db = sqlite3.connect(
+        "./instance/flaskr.sqlite",
+        detect_types=sqlite3.PARSE_DECLTYPES
+    )
+    cursor = db.cursor()
 
+    posts = cursor.execute(
+        'SELECT * FROM post WHERE date = ? and time = ?', (date, time)).fetchall()
 
-db = sqlite3.connect(
-    "./instance/flaskr.sqlite",
-    detect_types=sqlite3.PARSE_DECLTYPES
-).cursor()
+    if posts is not None or posts != []:
+        user_tokens = {}
 
-fake_user = db.execute('SELECT username FROM user WHERE id = 1').fetchone()
-db.execute('') commit
+        for post in posts:
+            user = post[1]
+            if user not in user_tokens.keys():
+                user_tokens[user] = cursor.execute(
+                    'SELECT token FROM user WHERE username = ?', (user,)).fetchone()[0]
+            push_message(post[4], user_tokens[user])
+            cursor.execute("DELETE FROM post WHERE id = ?", (post[0],))
+            db.commit()
 
-date = dt.now().strftime('%Y-%m-%d')
-time = dt.now().strftime('%H:%M')
-
-posts = db.execute(
-    'SELECT * FROM post WHERE date = ? and time = ?', (date, time)).fetchall()
-print(posts)
-if posts is not None or posts != []:
-    users = {}
-
-    for post in posts:
-        user = post[1]
-        if user not in users.keys():
-            users[user] = db.execute(
-                'SELECT token FROM user WHERE username = ?', (user,)).fetchone()
-print(users)
-
-db.close()
+    cursor.close()

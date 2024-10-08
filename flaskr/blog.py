@@ -29,7 +29,7 @@ def user(username):
 
         error = None
 
-        if dt.strptime(f'{date} {time}', '%Y-%m-%d %H:%M') < dt.now():
+        if dt.strptime(f'{date} {time}', '%Y-%m-%d %H:%M') <= dt.now():
             error = "Date/time has already passed"
 
         if not body:

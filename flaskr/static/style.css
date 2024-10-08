@@ -139,11 +139,13 @@ input[type=submit] {
 }
 
 input[type=text] {
-    display: block;
-    width: 20%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: content-box;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+input[type=password] {
+    display: inline-block;
+    margin: 5px 0;
 }
 
 input[type=date] {

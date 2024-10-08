@@ -13,13 +13,16 @@
         <input name="username" placeholder="{{g.user['username']}}" id="username" readonly
             onfocus="this.removeAttribute('readonly');">
         <input class="danger" type="submit" value="Change username">
+        <input type="hidden" value="username" name="type" id="type">
+
 
 </form>
-<form action="{{ url_for('config.token') }}" method="post">
+<form method="post">
     <div class="setting-label">
         Change token
     </div>
-    <input type="password" value="{{g.user['token']}}" name="token" id="token" maxlength="4" size="4" readonly
+    <input type="hidden" value="token" name="type" id="type">
+    <input type="password" value="{{g.user['token']}}" size="40" name="token" id="token" readonly
         onfocus="this.removeAttribute('readonly');">
     <input type="checkbox" onclick="myFunction('token')" class="show-hide-secret">Show
     <input class="danger" type="submit" value="Save token">
@@ -35,6 +38,9 @@
     </div>
     <input type="password" placeholder="New password" name="password" id="new_password">
     <input type="checkbox" onclick="myFunction('new_password')" class="show-hide-secret">Show
+    <input type="password" placeholder="Confirm password" name="password" id="confirm_password">
+    <input type="checkbox" onclick="myFunction('confirm_password')" class="show-hide-secret">Show
+    <input type="hidden" value="password" name="type" id="type">
     <div class="setting-label"></div>
 
     </div>
@@ -50,6 +56,11 @@
         } else {
             x.type = "password";
         }
-    } 
+    }
+    function calculateLength(text) {
+        var str_length = text.length;
+        console.log(str_length);
+        return str_length
+    }
 </script>
 {% endblock %}
