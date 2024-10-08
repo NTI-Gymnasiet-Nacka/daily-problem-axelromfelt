@@ -11,7 +11,8 @@ CREATE TABLE user (
 CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   author_id INTEGER NOT NULL,
-  title TEXT NOT NULL,
+  date TEXT NOT NULL,
+  time TEXT NOT NULL,
   body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );

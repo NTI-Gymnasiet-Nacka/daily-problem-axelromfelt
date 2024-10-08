@@ -1,7 +1,13 @@
 import http.client
 import urllib
-APP_TOKEN = "aszwjnjeffy3cdcisqb6anm9eusrhh"
-USER_KEY = "uoghnwn4vgn6tgnqm5oo6m4ckjwppc"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+os.path.dirname(os.path.abspath(__file__))
+
+APP_TOKEN = os.environ.get("APP_TOKEN")
+USER_KEY = os.environ.get("USER_KEY")
 
 
 def push_message(message: str) -> None:

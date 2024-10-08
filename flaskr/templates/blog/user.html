@@ -11,14 +11,14 @@
 
         <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
 
-        <input type="text" name="text" id="text" value="{{ request.form['title'] }}" required>
+
 
 
         <label for="date">Date/time</label>
 
-        <input type="date" name="date" id="date" value="{{ request.form['title'] }}" required>
+        <input type="date" name="date" id="date" value="{{ request.form['date'] }}" required>
 
-        <input type="time" name="time" id="time" value="{{ request.form['title'] }}" required>
+        <input type="time" name="time" id="time" value="{{ request.form['time'] }}" required>
 
         <input type="submit" value="Save">
 
