@@ -23,10 +23,22 @@ db = sqlite3.connect(
     "./instance/flaskr.sqlite",
     detect_types=sqlite3.PARSE_DECLTYPES
 ).cursor()
+
+
 date = dt.now().strftime('%Y-%m-%d')
 time = dt.now().strftime('%H:%M')
 
-post = db.execute(
-    f'SELECT * FROM post WHERE date = ? and time = ?', (date, time)).fetchall()
-print(post)
+posts = db.execute(
+    'SELECT * FROM post WHERE date = ? and time = ?', (date, time)).fetchall()
+print(posts)
+if posts is not None or posts != []:
+    users = {}
+
+    for post in posts:
+        user = post[1]
+        if user not in users.keys():
+            users[user] = db.execute(
+                'SELECT token FROM user WHERE username = ?', (user,)).fetchone()
+print(users)
+
 db.close()
