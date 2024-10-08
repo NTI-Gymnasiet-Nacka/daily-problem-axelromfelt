@@ -24,6 +24,8 @@ db = sqlite3.connect(
     detect_types=sqlite3.PARSE_DECLTYPES
 ).cursor()
 
+fake_user = db.execute('SELECT username FROM user WHERE id = 1').fetchone()
+db.execute('') commit
 
 date = dt.now().strftime('%Y-%m-%d')
 time = dt.now().strftime('%H:%M')
