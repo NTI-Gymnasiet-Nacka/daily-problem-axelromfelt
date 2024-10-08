@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
-
+from datetime import datetime as dt
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
@@ -28,6 +28,9 @@ def user(username):
         date = request.form['date']
 
         error = None
+
+        if dt.strptime(f'{date} {time}', '%Y-%m-%d %H:%M') < dt.now():
+            error = "Date/time has already passed"
 
         if not body:
             error = 'Message is required.'

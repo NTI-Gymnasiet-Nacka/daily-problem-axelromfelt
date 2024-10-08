@@ -1,5 +1,5 @@
 import sqlite3
-
+from datetime import datetime as dt
 
 # def get_db():
 
@@ -22,8 +22,11 @@ import sqlite3
 db = sqlite3.connect(
     "./instance/flaskr.sqlite",
     detect_types=sqlite3.PARSE_DECLTYPES
-)
-db.row_factory = sqlite3.Row
-user = db.execute('SELECT * FROM user').fetchall()
-print(user)
+).cursor()
+date = dt.now().strftime('%Y-%m-%d')
+time = dt.now().strftime('%H:%M')
+
+post = db.execute(
+    f'SELECT * FROM post WHERE date = ? and time = ?', (date, time)).fetchall()
+print(post)
 db.close()
