@@ -57,13 +57,14 @@ def change_token(user_token):
 
 
 def change_password(old_password, new_password, confirm_password):
-    if push_message('setup test', user_token) == 200:
-        db = get_db()
-        db.execute(
-            "UPDATE user SET token = ? WHERE id = ?", (
-                user_token, g.user["id"])
-        )
-        db.commit()
+    if check_password_hash(g.user['password'], old_password):
+        if new_password == confirm_password:
+            db = get_db()
+            db.execute(
+                "UPDATE user SET password = ? WHERE id = ?", (
+                    generate_password_hash(new_password), g.user["id"])
+            )
+            db.commit()
         return True
     else:
         False

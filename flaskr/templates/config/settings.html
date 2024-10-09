@@ -19,13 +19,13 @@
 </form>
 <form method="post">
     <div class="setting-label">
-        Change token
+        Change user key
     </div>
     <input type="hidden" value="token" name="type" id="type">
     <input type="password" value="{{g.user['token']}}" size="40" name="token" id="token" readonly
         onfocus="this.removeAttribute('readonly');">
     <input type="checkbox" onclick="myFunction('token')" class="show-hide-secret">Show
-    <input class="danger" type="submit" value="Save token">
+    <input class="danger" type="submit" value="Save user key">
 </form>
 <form method="post">
 

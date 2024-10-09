@@ -6,6 +6,8 @@ from datetime import datetime as dt
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
+from push_message import push_message
+
 bp = Blueprint('blog', __name__)
 
 
@@ -22,6 +24,16 @@ def index():
 @bp.route('/user/<username>', methods=('GET', 'POST'))
 @login_required
 def user(username):
+    if g.user['token'] is None:
+        if request.method == 'POST':
+            token_check = change_token(request.form['token'])
+            if token_check is not None:
+                flash(token_check)
+            else:
+                return render_template('blog/user.html')
+
+        return render_template('blog/no_token.html')
+
     if request.method == 'POST':
         time = request.form['time']
         body = request.form['body']
@@ -46,6 +58,20 @@ def user(username):
                 (time, date, body, g.user['username'])
             )
             db.commit()
+            flash('Reminder set')
             return redirect(url_for('blog.index'))
 
     return render_template('blog/user.html')
+
+
+def change_token(user_token):
+    if push_message('setup test', user_token) == 200:
+        db = get_db()
+        db.execute(
+            "UPDATE user SET token = ? WHERE id = ?", (
+                user_token, g.user["id"])
+        )
+        db.commit()
+        return None
+    else:
+        return 'Not a valid user key'

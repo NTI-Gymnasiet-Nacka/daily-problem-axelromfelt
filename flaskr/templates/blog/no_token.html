@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}New Reminder{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <h3>
+        No pushover user key.
+    </h3>
+    <p>
+        Your account does not have a pushover user key assigned to it.
+    </p>
+    <p>
+        To get a pushover user key you need to signup for an account on <a href="https://pushover.net/">pushover</a>
+    </p>
+    <p> You will also need to download the pushover mobile app to be able to receive your reminders</p>
+    <p> Enter the user key below:</p>
+    <form method="post">
+        <div class="setting-label">
+            Add user key
+        </div>
+        <input type="hidden" value="token" name="type" id="type">
+        <input type="text" size="40" name="token" id="token" readonly onfocus="this.removeAttribute('readonly');">
+        <input class="danger" type="submit" value="Save user key">
+    </form>
+</body>
+{% endblock %}
