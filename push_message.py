@@ -17,6 +17,3 @@ def push_message(message: str, user_token) -> None:
                      "message": message,
                  }), {"Content-type": "application/x-www-form-urlencoded"})
     return conn.getresponse().status
-
-
-print(push_message("message", 'u6by429m334zkap63ixfvett2as3sv'))
