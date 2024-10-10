@@ -24,7 +24,7 @@
     <input type="hidden" value="token" name="type" id="type">
     <input type="password" value="{{g.user['token']}}" size="40" name="token" id="token" readonly
         onfocus="this.removeAttribute('readonly');">
-    <input type="checkbox" onclick="myFunction('token')" class="show-hide-secret">Show
+    <input type="checkbox" onclick="show_hidden_text('token')" class="show-hide-secret">Show
     <input class="danger" type="submit" value="Save user key">
 </form>
 <form method="post">
@@ -33,23 +33,26 @@
         Change password
     </div>
     <input type="password" placeholder="Old password" name="password" id="old_password">
-    <input type="checkbox" onclick="myFunction('old_password')" class="show-hide-secret">Show
+    <input type="checkbox" onclick="show_hidden_text('old_password')" class="show-hide-secret">Show
     <div class="setting-label">
     </div>
     <input type="password" placeholder="New password" name="password" id="new_password">
-    <input type="checkbox" onclick="myFunction('new_password')" class="show-hide-secret">Show
+    <input type="checkbox" onclick="show_hidden_text('new_password')" class="show-hide-secret">Show
     <input type="password" placeholder="Confirm password" name="password" id="confirm_password">
-    <input type="checkbox" onclick="myFunction('confirm_password')" class="show-hide-secret">Show
+    <input type="checkbox" onclick="show_hidden_text('confirm_password')" class="show-hide-secret">Show
     <input type="hidden" value="password" name="type" id="type">
     <div class="setting-label"></div>
 
     </div>
-    <input type="submit" value="Save">
+    <input class="danger" type="submit" value="Change password">
     </div>
 </form>
+<form>
+    <input type="submit" value="Close settings">
 
+</form>
 <script>
-    function myFunction(id) {
+    function show_hidden_text(id) {
         var x = document.getElementById(id);
         if (x.type === "password") {
             x.type = "text";

@@ -4,6 +4,9 @@ from push_message import push_message
 
 
 def check_messages():
+    """checks the database if there are any messages that should get pushed. Picks messages according to the date and time written in the database
+
+    """
     date = dt.now().strftime('%Y-%m-%d')
     time = dt.now().strftime('%H:%M')
 

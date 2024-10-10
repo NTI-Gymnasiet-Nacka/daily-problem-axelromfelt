@@ -4,6 +4,11 @@ from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from message_check import check_messages
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 def create_app(test_config=None):
